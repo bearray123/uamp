@@ -457,7 +457,7 @@ open class MusicService : MediaBrowserServiceCompat(), SessionAvailabilityListen
         }
 
         currentPlayer.seekTo(playbackPositionMs)
-
+    }
 }
 
 /**
