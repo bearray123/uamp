@@ -129,6 +129,7 @@ open class MusicService : MediaBrowserServiceCompat(), SessionAvailabilityListen
     private val castPlayer: CastPlayer by lazy {
         CastPlayer(CastContext.getSharedInstance(this)).apply {
             setSessionAvailabilityListener(this@MusicService)
+            addListener(playerListener)
         }
     }
 
@@ -398,7 +399,7 @@ open class MusicService : MediaBrowserServiceCompat(), SessionAvailabilityListen
             when (playbackState) {
                 Player.STATE_BUFFERING,
                 Player.STATE_READY -> {
-                    notificationManager.showNotification()
+                    notificationManager.showNotificationForPlayer(currentPlayer)
                     becomingNoisyReceiver.register()
 
                     // If playback is paused we remove the foreground state which allows the
