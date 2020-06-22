@@ -45,11 +45,11 @@ const val NOW_PLAYING_NOTIFICATION = 0xb339 // Arbitrary number used to identify
  */
 class UampNotificationManager(
     private val context: Context,
-    private val player: Player,
     sessionToken: MediaSessionCompat.Token,
     notificationListener: PlayerNotificationManager.NotificationListener
 ) {
 
+    private var player: Player? = null
     private val serviceJob = SupervisorJob()
     private val serviceScope = CoroutineScope(Dispatchers.Main + serviceJob)
     private val notificationManager: PlayerNotificationManager
@@ -79,10 +79,6 @@ class UampNotificationManager(
 
     fun hideNotification() {
         notificationManager.setPlayer(null)
-    }
-
-    fun showNotification() {
-        notificationManager.setPlayer(player)
     }
 
     fun showNotificationForPlayer(player: Player){
